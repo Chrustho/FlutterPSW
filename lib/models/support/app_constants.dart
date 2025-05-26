@@ -11,6 +11,31 @@ class AppConstants {
   static const String artistsEndpoint = '/artists';
   static const String reviewsEndpoint = '/reviews';
 
+  // addresses
+  static final String ADDRESS_STORE_SERVER = "localhost:8082";
+  static final String ADDRESS_AUTHENTICATION_SERVER = "***";
+
+  // authentication
+  static final String REALM = "***";
+  static final String CLIENT_ID = "***";
+  static final String CLIENT_SECRET = "***";
+  static final String REQUEST_LOGIN = "/auth/realms/" + REALM + "/protocol/openid-connect/token";
+  static final String REQUEST_LOGOUT = "/auth/realms/" + REALM + "/protocol/openid-connect/logout";
+
+  // responses
+  static final String RESPONSE_ERROR_MAIL_USER_ALREADY_EXISTS = "ERROR_MAIL_USER_ALREADY_EXISTS";
+
+  // messages
+  static final String MESSAGE_CONNECTION_ERROR = "connection_error";
+
+  // links
+  static final String LINK_RESET_PASSWORD = "***";
+  static final String LINK_FIRST_SETUP_PASSWORD = "***";
+
+  // requests
+  static final String REQUEST_SEARCH_PRODUCTS = "/products/search/by_name";
+  static final String REQUEST_ADD_USER = "/users";
+
   // UI Constants
   static const double defaultPadding = 16.0;
   static const double defaultRadius = 8.0;

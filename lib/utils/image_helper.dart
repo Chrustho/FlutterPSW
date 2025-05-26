@@ -6,7 +6,8 @@ class ImageHelper {
   static Future<bool> checkImageExists(String imagePath) async {
     try {
       // Se l'immagine ha già un'estensione, verifica direttamente
-      if (AppConstants.supportedImageExtensions.any((ext) => imagePath.contains(ext))) {
+      if (AppConstants.supportedImageExtensions.any((ext) =>
+          imagePath.contains(ext))) {
         await rootBundle.load(imagePath);
         return true;
       }
@@ -29,7 +30,8 @@ class ImageHelper {
   /// Ottiene il path completo dell'immagine con l'estensione corretta
   static Future<String> getImagePathWithExtension(String basePath) async {
     // Se ha già un'estensione, ritorna così com'è
-    if (AppConstants.supportedImageExtensions.any((ext) => basePath.contains(ext))) {
+    if (AppConstants.supportedImageExtensions.any((ext) =>
+        basePath.contains(ext))) {
       return basePath;
     }
 
@@ -52,6 +54,7 @@ class ImageHelper {
     return title
         .toLowerCase()
         .replaceAll(RegExp(r'[^\w\s-]'), '') // Rimuove caratteri speciali
-        .replaceAll(RegExp(r'\s+'), '_')     // Sostituisce spazi con underscore
-        .replaceAll(RegExp(r'_+'), '_')      // Evita underscore multipli
-        .replaceAll(RegExp(r'^_|_
+        .replaceAll(RegExp(r'\s+'), '_') // Sostituisce spazi con underscore
+        .replaceAll(RegExp(r'_+'), '_');
+  } // Evita underscore multipli
+}

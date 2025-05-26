@@ -8,7 +8,7 @@ class RecensioneAlbum {
   final Album? album;
   final DateTime? dataRecensione;
   final double voto;
-  final String? testo;
+  final String testo;
 
   RecensioneAlbum({
     this.id,

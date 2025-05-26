@@ -9,6 +9,7 @@ void main() {
   runApp(MyApp());
 }
 
+/*
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,58 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: HomeScreen(),
+      ),
+    );
+  }
+}
+
+ */
+class MainApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Recensioni Musicali',
+      theme: ThemeData.dark(),
+      home: MainNavigation(),
+    );
+  }
+}
+
+class MainNavigation extends StatefulWidget {
+  @override
+  _MainNavigationState createState() => _MainNavigationState();
+}
+
+class _MainNavigationState extends State<MainNavigation> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    HomePage(),
+    ExplorePage(),
+    ReviewsPage(),
+    ProfilePage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Esplora'),
+          BottomNavigationBarItem(icon: Icon(Icons.rate_review), label: 'Recensioni'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profilo'),
+        ],
       ),
     );
   }

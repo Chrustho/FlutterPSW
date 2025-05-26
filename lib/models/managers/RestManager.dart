@@ -74,7 +74,7 @@ class RestManager {
         return response.body;
       } catch(err) {
         if ( delegate != null && !errorOccurred ) {
-          delegate!.errorNetworkOccurred(Constants.MESSAGE_CONNECTION_ERROR);
+          delegate!.errorNetworkOccurred(AppConstants.MESSAGE_CONNECTION_ERROR);
           errorOccurred = true;
         }
         await Future.delayed(const Duration(seconds: 5), () => null); // not the best solution
