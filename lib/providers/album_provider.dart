@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../models/album.dart';
+import '../models/objects/album.dart';
 import '../services/api_services.dart';
 import '../services/api_services.dart';
 

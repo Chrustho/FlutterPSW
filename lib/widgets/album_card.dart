@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/app_constants.dart';
-import '../models/album.dart';
+import '../models/support/app_constants.dart';
+import '../models/objects/album.dart';
 import 'star_rating_widget.dart.dart';
 import 'album_image_widget.dart';
 

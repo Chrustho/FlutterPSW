@@ -1,6 +1,6 @@
 // widgets/error_widget.dart
 import 'package:flutter/material.dart';
-import '../constants/app_constants.dart';
+import '../models/support/app_constants.dart';
 
 class ErrorDisplayWidget extends StatelessWidget {
   final String message;

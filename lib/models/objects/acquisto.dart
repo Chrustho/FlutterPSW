@@ -1,4 +1,4 @@
-import 'package:frontend_psw/models/users.dart';
+import 'package:frontend_psw/models/objects/users.dart';
 
 import 'album.dart';
 

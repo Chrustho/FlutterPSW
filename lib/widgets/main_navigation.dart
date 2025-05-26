@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/app_constants.dart';
+import '../models/support/app_constants.dart';
 
 class MainNavigation extends StatelessWidget {
   final int selectedIndex;

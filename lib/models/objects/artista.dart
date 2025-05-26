@@ -1,4 +1,4 @@
-import 'package:frontend_psw/models/solista.dart';
+import 'package:frontend_psw/models/objects/solista.dart';
 
 import 'band.dart';
 import 'genere.dart';

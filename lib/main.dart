@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'providers/album_provider.dart';
-import 'constants/app_constants.dart';
+import 'models/support/app_constants.dart';
 
 void main() {
   runApp(MyApp());

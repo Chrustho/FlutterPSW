@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import '../constants/app_constants.dart';
+import '../models/support/app_constants.dart';
 
 class ImageHelper {
   /// Verifica se un'immagine esiste nelle risorse

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../constants/app_constants.dart';
-import '../models/album.dart';
+import '../models/support/app_constants.dart';
+import '../models/objects/album.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/star_rating_widget.dart';
 

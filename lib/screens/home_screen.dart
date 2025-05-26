@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_psw/models/artista.dart';
-import 'package:frontend_psw/models/genere.dart';
+import 'package:frontend_psw/models/objects/artista.dart';
+import 'package:frontend_psw/models/objects/genere.dart';
 import 'package:frontend_psw/services/api_services.dart';
-import '../constants/app_constants.dart';
-import '../models/album.dart';
+import '../models/support/app_constants.dart';
+import '../models/objects/album.dart';
 import '../services/api_services.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/search_bar_widget.dart';
