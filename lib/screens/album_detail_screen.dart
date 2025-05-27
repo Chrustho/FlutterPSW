@@ -8,7 +8,7 @@ import '../widgets/star_rating_widget.dart';
 class AlbumDetailScreen extends StatelessWidget {
   final Album album;
 
-  const AlbumDetailScreen({Key? key, required this.album}) : super(key: key);
+  const AlbumDetailScreen({super.key, required this.album});
 
   @override
   Widget build(BuildContext context) {

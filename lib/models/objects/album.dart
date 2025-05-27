@@ -1,3 +1,7 @@
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
+import 'dart:convert';
+
 import 'artista.dart';
 import 'canzone.dart';
 import 'genere.dart';
@@ -59,5 +63,41 @@ class Album {
   // URL placeholder per copertina
   String get placeholderCover {
     return 'https://via.placeholder.com/300x300/6366f1/ffffff?text=${nome.substring(0, 1)}';
+  }
+
+  String? get imageUrl => null;
+
+  getRating(String nome) {
+
+  }
+
+  static Widget fromJsonList(String response) {
+    if (response.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final List<dynamic> jsonList = json.decode(response);
+    final List<Album> albums =
+        jsonList.map((json) => Album.fromJson(json)).toList();
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemCount: albums.length,
+      itemBuilder: (context, index) {
+        final album = albums[index];
+        return Card(
+          elevation: 2.0,
+          margin: const EdgeInsets.only(bottom: 12.0),
+          child: ListTile(
+            title: Text(album.nome),
+            subtitle: Text(album.artista.nome),
+            trailing:
+                album.annoRilascio != null
+                    ? Text(album.annoRilascio.toString())
+                    : null,
+          ),
+        );
+      },
+    );
   }
 }

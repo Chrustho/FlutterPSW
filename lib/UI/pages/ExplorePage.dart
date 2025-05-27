@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_psw/models/support/app_constants.dart';
+import 'dart:convert';
 
 import '../../models/managers/RestManager.dart';
 import '../../models/objects/album.dart';
@@ -37,10 +38,12 @@ class _ExplorePageState extends State<ExplorePage> {
         ],
       ),
       body: FutureBuilder(
-        future: RestManager().makeGetRequest(AppConstants.ADDRESS_STORE_SERVER, "servicePath"),
+        future: RestManager().makeGetRequest(AppConstants.baseURl,
+            '$AppConstants.albumsCercaArtistaNome?nome=$_query'),
         builder: (ctx, snap) {
-          if (snap.connectionState == ConnectionState.waiting)
+          if (snap.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
+          }
           final results = snap.data as List<Album>;
           return ListView.builder(
             itemCount: results.length,
@@ -60,13 +63,28 @@ class _ExplorePageState extends State<ExplorePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              DropdownButton<Genere>(
-                hint: Text('Seleziona genere'),
-                value: _selectedGenre,
-                items: RestManager().makeGetRequest(AppConstants.ADDRESS_STORE_SERVER, "servicePath").map((g) =>
-                    DropdownMenuItem(value: g, child: Text(g.nome))
-                ).toList(),
-                onChanged: (g) => setState(() => _selectedGenre = g),
+              FutureBuilder<List<Genere>>(
+                future: RestManager()
+                    .makeGetRequest(
+                    AppConstants.baseURl, AppConstants.genresEdnpoint)
+                    .then((response) =>
+                    (jsonDecode(response) as List)
+                        .map((item) => Genere.fromJson(item))
+                        .toList()),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+                  final generi = snapshot.data ?? [];
+                  return DropdownButton<Genere>(
+                    hint: Text('Seleziona genere'),
+                    value: _selectedGenre,
+                    items: generi.map((g) =>
+                        DropdownMenuItem(value: g, child: Text(g.nome))
+                    ).toList(),
+                    onChanged: (g) => setState(() => _selectedGenre = g),
+                  );
+                },
               ),
               TextField(
                 decoration: InputDecoration(labelText: 'Anno'),

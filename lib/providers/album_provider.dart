@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:frontend_psw/models/managers/RestManager.dart';
 import '../models/objects/album.dart';
 
 
@@ -23,7 +24,7 @@ class AlbumProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _albums = await ApiService.getAllAlbums();
+      _albums = (await RestManager().makeGetRequest("dhgbjhre", "servicePath")) as List<Album>;
       _filteredAlbums = _albums;
       _isLoading = false;
       notifyListeners();

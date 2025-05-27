@@ -22,7 +22,7 @@ class AlbumImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
-      future: ImageHelper.getImagePathWithExtension(album.imageUrl),
+      future: ImageHelper.getImagePathWithExtension(album.imageUrl ?? AppConstants.defaultAlbumCover),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildLoadingPlaceholder();

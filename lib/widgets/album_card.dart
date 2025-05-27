@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:frontend_psw/widgets/star_rating_widget.dart';
 import '../models/support/app_constants.dart';
 import '../models/objects/album.dart';
-import 'star_rating_widget.dart.dart';
 import 'album_image_widget.dart';
 
 class AlbumCard extends StatelessWidget {
@@ -10,11 +11,11 @@ class AlbumCard extends StatelessWidget {
   final bool showDescription;
 
   const AlbumCard({
-    Key? key,
+    super.key,
     required this.album,
     this.onTap,
     this.showDescription = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class AlbumCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    album.title,
+                    album.nome,
                     style: TextStyle(
                       fontSize: AppConstants.subtitleFontSize,
                       fontWeight: FontWeight.bold,
@@ -54,7 +55,7 @@ class AlbumCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    album.artist,
+                    album.artista.nome,
                     style: TextStyle(
                       fontSize: AppConstants.bodyFontSize,
                       color: Colors.grey[600],
@@ -62,21 +63,9 @@ class AlbumCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  if (showDescription) ...[
-                    SizedBox(height: 8),
-                    Text(
-                      album.description,
-                      style: TextStyle(
-                        fontSize: AppConstants.bodyFontSize,
-                        color: Colors.grey[700],
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
                   SizedBox(height: 8),
                   StarRatingWidget(
-                    rating: album.rating,
+                    rating: album.getRating(album.nome),
                     starSize: 16,
                     showRatingText: true,
                   ),
@@ -102,22 +91,24 @@ class AlbumCard extends StatelessWidget {
       ),
     );
   }
-  if (!AppConstants.supportedImageExtensions.any((ext) => imagePath.contains(ext))) {
-  for (String extension in AppConstants.supportedImageExtensions) {
-  try {
-  await rootBundle.load('$imagePath$extension');
-  return true;
-  } catch (e) {
-  continue;
+  Future<bool> checkImageExists(String imagePath) async {
+    try {
+      if (!AppConstants.supportedImageExtensions.any((ext) => imagePath.contains(ext))) {
+        for (String extension in AppConstants.supportedImageExtensions) {
+          try {
+            await rootBundle.load('$imagePath$extension');
+            return true;
+          } catch (e) {
+            continue;
+          }
+        }
+        return false;
+      } else {
+        await rootBundle.load(imagePath);
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
   }
-  }
-  return false;
-  } else {
-  await rootBundle.load(imagePath);
-  return true;
-  }
-} catch (e) {
-return false;
-}
-}
 }

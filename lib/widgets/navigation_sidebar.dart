@@ -6,10 +6,10 @@ class NavigationSidebar extends StatelessWidget {
   final Function(String) onItemSelected;
 
   const NavigationSidebar({
-    Key? key,
+    super.key,
     required this.selectedItem,
     required this.onItemSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

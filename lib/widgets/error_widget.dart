@@ -7,10 +7,10 @@ class ErrorDisplayWidget extends StatelessWidget {
   final VoidCallback? onRetry;
 
   const ErrorDisplayWidget({
-    Key? key,
+    super.key,
     required this.message,
     this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +47,11 @@ class ErrorDisplayWidget extends StatelessWidget {
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: onRetry,
-                child: Text('Try Again'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(AppConstants.primaryColorHex),
                   foregroundColor: Colors.white,
                 ),
+                child: Text('Try Again'),
               ),
             ],
           ],

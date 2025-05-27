@@ -1,24 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_psw/models/support/app_constants.dart';
-
 import '../../models/managers/RestManager.dart';
 import '../../models/objects/album.dart';
+import '../../widgets/AlbumCard.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: RestManager().makeGetRequest(AppConstants.ADDRESS_STORE_SERVER, "servicePath"),
+      future: RestManager().makeGetRequest(
+          AppConstants.ADDRESS_STORE_SERVER, AppConstants.albumsGetAll),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting)
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
-
-        if (snapshot.hasError)
+        }
+        if (snapshot.hasError) {
           return Center(child: Text('Errore nel caricamento'));
-
+        }
         final albums = snapshot.data as List<Album>;
-
         return ListView(
           padding: EdgeInsets.all(16),
           children: [

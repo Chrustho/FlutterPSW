@@ -8,13 +8,13 @@ class StarRatingWidget extends StatelessWidget {
   final Color inactiveColor;
 
   const StarRatingWidget({
-    Key? key,
+    super.key,
     required this.rating,
     this.starSize = 20,
     this.showRatingText = false,
     this.activeColor = Colors.orange,
     this.inactiveColor = Colors.grey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

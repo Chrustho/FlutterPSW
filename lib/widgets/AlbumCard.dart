@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../UI/pages/AlbumDetailPage.dart';
 import '../models/objects/album.dart';
 
 class AlbumCard extends StatelessWidget {
@@ -13,7 +14,7 @@ class AlbumCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
-          builder: (_) => AlbumDetailPage(albumId: album.id),
+          builder: (_) => AlbumDetailPage(albumId: album.id ?? 0),
         ));
       },
       child: Container(

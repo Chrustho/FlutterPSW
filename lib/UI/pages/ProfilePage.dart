@@ -9,10 +9,12 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: RestManager().makeGetRequest(AppConstants.ADDRESS_STORE_SERVER, "servicePath"),
-      builder: (c, snap) {
-        if (snap.connectionState == ConnectionState.waiting)
+      future: RestManager().makeGetRequest(
+          AppConstants.ADDRESS_STORE_SERVER, AppConstants.userProfile),
+      builder: (context, snap) {
+        if (snap.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
+        }
         final user = snap.data as Users;
         return Scaffold(
           appBar: AppBar(title: Text(user.nome)),
@@ -36,7 +38,8 @@ class ProfilePage extends StatelessWidget {
                 ElevatedButton(
                   child: Text('Esci'),
                   onPressed: () {
-                    RestManager().makeGetRequest(AppConstants.ADDRESS_STORE_SERVER, "servicePath");
+                    RestManager().makeGetRequest(
+                        AppConstants.ADDRESS_STORE_SERVER, AppConstants.userLogout);
                     Navigator.pushReplacementNamed(context, '/login');
                   },
                 ),

@@ -1,12 +1,14 @@
 // main.dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'screens/home_screen.dart';
+import 'UI/pages/ExplorePage.dart';
+import 'UI/pages/HomePage.dart';
+import 'UI/pages/ProfilePage.dart';
+import 'UI/pages/ReviewsPage.dart';
 import 'providers/album_provider.dart';
 import 'models/support/app_constants.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MainApp());
 }
 
 /*

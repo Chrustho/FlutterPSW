@@ -5,7 +5,7 @@ import 'package:frontend_psw/models/objects/recensione_album.dart';
 class RecensioneCard extends StatelessWidget {
   final RecensioneAlbum recensione;
 
-  const RecensioneCard({required this.recensione});
+  const RecensioneCard({super.key, required this.recensione});
 
   @override
   Widget build(BuildContext context) {

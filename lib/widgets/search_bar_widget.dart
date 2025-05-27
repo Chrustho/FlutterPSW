@@ -6,10 +6,10 @@ class SearchBarWidget extends StatefulWidget {
   final String hintText;
 
   const SearchBarWidget({
-    Key? key,
+    super.key,
     required this.onSearch,
     this.hintText = 'Search artists, albums...',
-  }) : super(key: key);
+  });
 
   @override
   _SearchBarWidgetState createState() => _SearchBarWidgetState();

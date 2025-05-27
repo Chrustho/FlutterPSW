@@ -6,6 +6,8 @@ import '../../models/managers/RestManager.dart';
 import '../../models/objects/album.dart';
 
 class CreateReviewPage extends StatefulWidget {
+  const CreateReviewPage({super.key});
+
   @override
   _CreateReviewPageState createState() => _CreateReviewPageState();
 }
@@ -27,11 +29,35 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
           child: Column(
             children: [
               // Selezione album (potrebbe aprire una pagina di ricerca)
-              DropdownButtonFormField<Album>(
-                hint: Text('Scegli un album'),
-                items: [], // popola con RestManager().getAllAlbums()
-                onChanged: (a) => setState(() => _chosenAlbum = a),
-                validator: (v) => v == null ? 'Seleziona un album' : null,
+              FutureBuilder<List<Album>>(
+                future: RestManager().makeGetRequest(
+                    AppConstants.baseURl, AppConstants.albumsGetAll).then((
+                    response) =>
+                    (response as List)
+                        .map((item) => Album.fromJson(item))
+                        .toList()),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Errore: ${snapshot.error}'));
+                    }
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return DropdownButtonFormField<Album>(
+                        hint: const Text('Scegli un album'),
+                        items: snapshot.data!.map((album) =>
+                          DropdownMenuItem<Album>(
+                            value: album,
+                            child: Text(album.toString()),
+                          )
+                        ).toList(),
+                        onChanged: (a) => setState(() => _chosenAlbum = a),
+                        validator: (v) => v == null ? 'Seleziona un album' : null,
+                      );
+                    }
+                    return const Center(child: Text('Nessun dato disponibile'));
+                },
               ),
               SizedBox(height: 12),
               Slider(
@@ -50,8 +76,8 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
               ),
               Spacer(),
               ElevatedButton(
-                child: Text('Invia'),
                 onPressed: _submit,
+                child: Text('Invia'),
               ),
             ],
           ),
@@ -61,21 +87,19 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
   }
 
   void _submit() {
-    /*
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    RestManager().makePostRequest(AppConstants.ADDRESS_STORE_SERVER, "path", {
-      albumId: _chosenAlbum!.id,
-      voto: _rating,
-      testo: _text,}
-    ).then((_) {
+    RestManager().makePostRequest(
+        AppConstants.baseURl, AppConstants.reviewCreate, {
+      'albumId': _chosenAlbum!.id,
+      'voto': _rating,
+      'testo': _text,
+    }).then((_) {
       Navigator.pop(context);
     }).catchError((e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Errore nell\'invio')),
       );
     });
-
-     */
   }
 }

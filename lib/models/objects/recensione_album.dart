@@ -16,7 +16,7 @@ class RecensioneAlbum {
     this.album,
     this.dataRecensione,
     required this.voto,
-    this.testo,
+    required this.testo,
   });
 
   factory RecensioneAlbum.fromJson(Map<String, dynamic> json) {
