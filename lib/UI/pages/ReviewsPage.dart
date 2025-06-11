@@ -7,6 +7,8 @@ import '../../models/objects/recensione_album.dart';
 import '../../widgets/RecensioneCard.dart';
 import 'CreateReviewPage.dart';
 
+
+/*
 class ReviewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -36,3 +38,5 @@ class ReviewsPage extends StatelessWidget {
     );
   }
 }
+
+ */

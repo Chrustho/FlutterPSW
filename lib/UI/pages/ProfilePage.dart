@@ -5,6 +5,7 @@ import 'package:frontend_psw/models/support/app_constants.dart';
 
 import '../../models/managers/RestManager.dart';
 
+/*
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -66,3 +67,5 @@ class _StatTile extends StatelessWidget {
     );
   }
 }
+
+ */
