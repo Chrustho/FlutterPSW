@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '';
+import '../../widgets/main_navigation.dart';
 import 'HomePage.dart'; // o ProfilePage
-import 'MainNavigation.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({Key? key}) : super(key: key);
