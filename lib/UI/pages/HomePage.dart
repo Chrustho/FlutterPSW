@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: RestManager().makeGetRequest(
-          AppConstants.ADDRESS_STORE_SERVER, AppConstants.albumsGetAll),
+          AppConstants.baseURl, AppConstants.albumsGetAll),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());

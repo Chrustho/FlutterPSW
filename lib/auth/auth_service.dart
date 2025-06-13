@@ -1,6 +1,7 @@
 // lib/auth_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:openid_client/openid_client_browser.dart';
 
 class TokenResponse {
   final String accessToken;
@@ -53,6 +54,26 @@ class AuthService {
       );
     }
     return null;
+  }
+
+  Future<Credential?> signInWithKeycloak() async {
+    var uri = Uri.parse('https://<KEYCLOAK_DOMAIN>/realms/<REALM_NAME>');
+    var clientId = '<CLIENT_ID>';
+    var scopes = ['openid', 'profile', 'email'];
+
+    var issuer = await Issuer.discover(uri);
+    var client = Client(issuer, clientId);
+
+    var authenticator = Authenticator(
+      client,
+      scopes: scopes,
+    );
+
+    authenticator.authorize();
+  }
+
+  Future<Credential?> signIn() async {
+    return await signInWithKeycloak();
   }
 
 
