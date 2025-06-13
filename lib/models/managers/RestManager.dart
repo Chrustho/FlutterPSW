@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:frontend_psw/models/objects/album.dart';
 import 'package:frontend_psw/models/support/app_constants.dart';
 import 'package:frontend_psw/models/support/ErrorListener.dart';
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 
 enum TypeHeader {
@@ -16,86 +18,28 @@ class RestManager {
   String? token;
 
 
-  Future<String> _makeRequest(String serverAddress, String servicePath, String method, TypeHeader type, {Map<String, String>? value, dynamic body}) async {
-    Uri uri = Uri.https(serverAddress, servicePath, value);
-    bool errorOccurred = false;
-    while ( true ) {
-      try {
-        var response;
-        // setting content type
-        String contentType = "";
-        dynamic formattedBody;
-        if ( type == TypeHeader.json ) {
-          contentType = "application/json;charset=utf-8";
-          formattedBody = json.encode(body);
-        }
-        else if ( type == TypeHeader.urlencoded ) {
-          contentType = "application/x-www-form-urlencoded";
-          formattedBody = body.keys.map((key) => "$key=${body[key]}").join("&");
-        }
-        // setting headers
-        Map<String, String> headers = Map();
-        headers[HttpHeaders.contentTypeHeader] = contentType;
-        if ( token != null ) {
-          headers[HttpHeaders.authorizationHeader] = 'bearer $token';
-        }
-        // making request
-        switch ( method ) {
-          case "post":
-            response = await post(
-              uri,
-              headers: headers,
-              body: formattedBody,
-            );
-            break;
-          case "get":
-            response = await get(
-              uri,
-              headers: headers,
-            );
-            break;
-          case "put":
-            response = await put(
-              uri,
-              headers: headers,
-            );
-            break;
-          case "delete":
-            response = await delete(
-              uri,
-              headers: headers,
-            );
-            break;
-        }
-        if ( delegate != null && errorOccurred ) {
-          delegate!.errorNetworkGone();
-          errorOccurred = false;
-        }
-        return response.body;
-      } catch(err) {
-        if ( delegate != null && !errorOccurred ) {
-          delegate!.errorNetworkOccurred(AppConstants.MESSAGE_CONNECTION_ERROR);
-          errorOccurred = true;
-        }
-        await Future.delayed(const Duration(seconds: 5), () => null); // not the best solution
-      }
+  Future<List<Album>> getAlbumByArtistaAndNome(String artista, String nome) async {
+    String url = '${AppConstants.baseURl}${AppConstants.albumsCercaArtistaNome}?artista=$artista&nome=$nome';
+    final response= await http.get(Uri.parse(url));
+
+    var responseData= json.decode(response.body);
+    List<Album> albums = [];
+    for(var albumData in responseData) {
+      albums.add(Album.fromJson(albumData));
     }
+    return albums;
   }
 
-  Future<String> makePostRequest(String serverAddress, String servicePath, dynamic value, {TypeHeader type = TypeHeader.json}) async {
-    return _makeRequest(serverAddress, servicePath, "post", type, body: value);
-  }
+  Future<Album> getAlbumById(int? id) async {
+    String url = '${AppConstants.baseURl}${AppConstants.albumsGetByID}?id=$id';
+    final response = await http.get(Uri.parse(url));
 
-  Future<String> makeGetRequest(String serverAddress, String servicePath, [Map<String, String>? value, TypeHeader type = TypeHeader.json]) async {
-    return _makeRequest(serverAddress, servicePath, "get", type, value: value);
-  }
-
-  Future<String> makePutRequest(String serverAddress, String servicePath, [Map<String, String>? value, TypeHeader type = TypeHeader.json]) async {
-    return _makeRequest(serverAddress, servicePath, "put", type, value: value);
-  }
-
-  Future<String> makeDeleteRequest(String serverAddress, String servicePath, [Map<String, String>? value, TypeHeader type = TypeHeader.json]) async {
-    return _makeRequest(serverAddress, servicePath, "delete", type, value: value);
+    if (response.statusCode == 200) {
+      var responseData = json.decode(response.body);
+      return Album.fromJson(responseData);
+    } else {
+      throw Exception('Failed to load album');
+    }
   }
 
 

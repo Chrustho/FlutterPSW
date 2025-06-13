@@ -24,7 +24,7 @@ class AlbumProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _albums = (await RestManager().makeGetRequest("dhgbjhre", "servicePath")) as List<Album>;
+      // _albums = (await RestManager().makeGetRequest("dhgbjhre", "servicePath")) as List<Album>;
       _filteredAlbums = _albums;
       _isLoading = false;
       notifyListeners();

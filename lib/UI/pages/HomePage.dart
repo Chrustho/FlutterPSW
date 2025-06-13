@@ -9,14 +9,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: RestManager().makeGetRequest(
-          AppConstants.baseURl, AppConstants.albumsPiuVotati),
+      future:RestManager().getAlbumByArtistaAndNome("Daft Punk", "Discovery"),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Errore nel caricamento'));
+          return Center(child: Text('Non caricamento degli album: ${snapshot.error}'));
         }
         final albums = snapshot.data as List<Album>;
         return ListView(

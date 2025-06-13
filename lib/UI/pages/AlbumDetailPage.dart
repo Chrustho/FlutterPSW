@@ -14,6 +14,7 @@ class AlbumDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+
       future: RestManager().makeGetRequest(AppConstants.baseURl, '$AppConstants.albumsGetByID?id=$albumId'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -43,7 +44,7 @@ class AlbumDetailPage extends StatelessWidget {
                 SizedBox(height: 12),
                 Text("Recensioni", style: Theme.of(context).textTheme.titleLarge),
                 FutureBuilder(
-                  future: RestManager().makeGetRequest(AppConstants.baseURl, '$AppConstants.albumsGetByID{$albumId}'),
+                  future: RestManager().getAlbumById(album.id),
                   builder: (context, recSnapshot) {
                     if (!recSnapshot.hasData) return CircularProgressIndicator();
                     final recensioni = recSnapshot.data as List<RecensioneAlbum>;

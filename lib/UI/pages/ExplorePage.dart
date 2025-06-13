@@ -38,8 +38,7 @@ class _ExplorePageState extends State<ExplorePage> {
         ],
       ),
       body: FutureBuilder(
-        future: RestManager().makeGetRequest(AppConstants.baseURl,
-            '$AppConstants.albumsCercaArtistaNome?nome=$_query'),
+        future: RestManager().getAlbumByArtistaAndNome("Radiohead", "OK Computer"),
         builder: (ctx, snap) {
           if (snap.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -63,6 +62,7 @@ class _ExplorePageState extends State<ExplorePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              /*
               FutureBuilder<List<Genere>>(
                 future: RestManager()
                     .makeGetRequest(
@@ -85,7 +85,10 @@ class _ExplorePageState extends State<ExplorePage> {
                     onChanged: (g) => setState(() => _selectedGenre = g),
                   );
                 },
-              ),
+              )
+
+               ,*/
+
               TextField(
                 decoration: InputDecoration(labelText: 'Anno'),
                 keyboardType: TextInputType.number,
